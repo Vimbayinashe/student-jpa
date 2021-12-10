@@ -32,8 +32,14 @@ public class Student {
 
     public Student(String firstName, String lastName, String SSN, String phoneNumber, String emailAddress,
                    String programme, int credits, String tuitionCost, String tuitionPaid) {
-
-        //todo: add Guards
+        
+        Guard.Against.EmptyString("firstName", firstName);
+        Guard.Against.EmptyString("lastName", lastName);
+        Guard.Against.EmptyString("SSN", SSN);
+        Guard.Against.EmptyString("programme", programme);
+        Guard.Against.InvalidCredits(credits);
+        Guard.Against.InvalidTuitionFormat(tuitionCost);
+        Guard.Against.InvalidTuitionFormat(tuitionPaid);
 
 
         this.firstName = firstName;
