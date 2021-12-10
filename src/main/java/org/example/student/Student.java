@@ -26,13 +26,12 @@ public class Student {
     @Convert(converter = BigDecimalConverter.class)
     private BigDecimal tuitionPaid;
 
-
-    public Student() {
+    protected Student() {
     }
 
-    public Student(String firstName, String lastName, String SSN, String phoneNumber, String emailAddress,
+    protected Student(String firstName, String lastName, String SSN, String phoneNumber, String emailAddress,
                    String programme, int credits, String tuitionCost, String tuitionPaid) {
-        
+
         Guard.Against.EmptyString("firstName", firstName);
         Guard.Against.EmptyString("lastName", lastName);
         Guard.Against.EmptyString("SSN", SSN);
@@ -40,6 +39,8 @@ public class Student {
         Guard.Against.InvalidCredits(credits);
         Guard.Against.InvalidTuitionFormat(tuitionCost);
         Guard.Against.InvalidTuitionFormat(tuitionPaid);
+
+        //todo: valid SSN guard
 
 
         this.firstName = firstName;
