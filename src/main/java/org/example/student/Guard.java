@@ -25,6 +25,10 @@ public class Guard {
                 throw new IllegalArgumentException("Minimum possible credits are 60.");
         }
 
+        public static void InvalidSSN(String ssn) {
+            if(ssn.length() != 13)
+                throw new IllegalArgumentException("Invalid SSN.");
+        }
     }
 
 }

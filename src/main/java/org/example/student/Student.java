@@ -1,5 +1,7 @@
 package org.example.student;
 
+import org.hibernate.id.GUIDGenerator;
+
 import javax.persistence.*;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
@@ -16,9 +18,9 @@ public class Student {
     private String SSN;
     private String phoneNumber;
     private String emailAddress;
-
     private String programme;
     private int credits;    //60 credits per year
+    private boolean active;
 
     @Convert(converter = BigDecimalConverter.class)
     private BigDecimal tuitionCost;
@@ -39,9 +41,7 @@ public class Student {
         Guard.Against.InvalidCredits(credits);
         Guard.Against.InvalidTuitionFormat(tuitionCost);
         Guard.Against.InvalidTuitionFormat(tuitionPaid);
-
-        //todo: valid SSN guard
-
+        Guard.Against.InvalidSSN(SSN);
 
         this.firstName = firstName;
         this.lastName = lastName;
@@ -50,6 +50,7 @@ public class Student {
         this.emailAddress = emailAddress;
         this.programme = programme;
         this.credits = credits;
+        this.active = true;
         this.tuitionCost = convertPrice(tuitionCost);
         this.tuitionPaid = convertPrice(tuitionPaid);
     }
@@ -148,21 +149,30 @@ public class Student {
         return this;
     }
 
+    public boolean isActive() {
+        return active;
+    }
+
+    public Student setActive(boolean active) {
+        this.active = active;
+        return this;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Student student = (Student) o;
-        return id == student.id && credits == student.credits && Objects.equals(firstName, student.firstName) &&
-               Objects.equals(lastName, student.lastName) && Objects.equals(SSN, student.SSN) &&
-               Objects.equals(phoneNumber, student.phoneNumber) && Objects.equals(emailAddress, student.emailAddress) &&
-               Objects.equals(programme, student.programme) && Objects.equals(tuitionCost, student.tuitionCost) &&
-               Objects.equals(tuitionPaid, student.tuitionPaid);
+        return id == student.id && credits == student.credits && active == student.active && Objects.equals(firstName
+                , student.firstName) && Objects.equals(lastName, student.lastName) && Objects.equals(SSN,
+                student.SSN) && Objects.equals(phoneNumber, student.phoneNumber) && Objects.equals(emailAddress,
+                student.emailAddress) && Objects.equals(programme, student.programme) && Objects.equals(tuitionCost,
+                student.tuitionCost) && Objects.equals(tuitionPaid, student.tuitionPaid);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, firstName, lastName, SSN, phoneNumber, emailAddress, programme, credits, tuitionCost, tuitionPaid);
+        return Objects.hash(id, firstName, lastName, SSN, phoneNumber, emailAddress, programme, credits, active, tuitionCost, tuitionPaid);
     }
 
     @Override
@@ -176,6 +186,7 @@ public class Student {
                ", emailAddress='" + emailAddress + '\'' +
                ", programme='" + programme + '\'' +
                ", credits=" + credits +
+               ", active=" + active +
                ", tuitionCost=" + tuitionCost +
                ", tuitionPaid=" + tuitionPaid +
                '}';

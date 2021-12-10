@@ -2,5 +2,8 @@ package org.example.student.studentbuilder;
 
 public interface PersonBuilder {
     PersonBuilder setName(String firstName, String lastName);
-    CourseBuilder setSSN(String SSN);
+
+    PersonBuilder setSSN(String SSN);
+
+    CourseBuilder setContactDetails(String phoneNumber, String emailAddress);
 }

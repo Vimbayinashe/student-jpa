@@ -31,8 +31,15 @@ public class StudentBuilder implements PersonBuilder, CourseBuilder {
     }
 
     @Override
-    public CourseBuilder setSSN(String SSN) {
+    public PersonBuilder setSSN(String SSN) {
         this.SSN = SSN.trim();
+        return this;
+    }
+
+    @Override
+    public CourseBuilder setContactDetails(String phoneNumber, String emailAddress) {
+        this.phoneNumber = phoneNumber.trim();
+        this.emailAddress = emailAddress.trim();
         return this;
     }
 
@@ -43,7 +50,6 @@ public class StudentBuilder implements PersonBuilder, CourseBuilder {
         return this;
     }
 
-
     @Override
     public CourseBuilder setTuitionCost(String tuitionCost) {
         this.tuitionCost = tuitionCost.trim();
@@ -53,12 +59,6 @@ public class StudentBuilder implements PersonBuilder, CourseBuilder {
     @Override
     public StudentBuilder setTuitionPaid(String tuitionPaid) {
         this.tuitionPaid = tuitionPaid.trim();
-        return this;
-    }
-
-    public StudentBuilder setContactDetails(String phoneNumber, String emailAddress) {
-        this.phoneNumber = phoneNumber.trim();
-        this.emailAddress = emailAddress.trim();
         return this;
     }
 

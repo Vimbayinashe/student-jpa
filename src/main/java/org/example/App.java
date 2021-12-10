@@ -32,6 +32,7 @@ public class App {
         Student student = StudentBuilder.getBuilder()
                 .setName("Elizabeth", "Adams")
                 .setSSN("19860712-6979")
+                .setContactDetails("", "")
                 .setProgramme("Law", 240)
                 .setTuitionCost("120000")
                 .setTuitionPaid("100000")
