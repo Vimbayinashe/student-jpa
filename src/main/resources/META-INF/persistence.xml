@@ -8,8 +8,6 @@
             <property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost:3306/lab4"/>
             <property name="javax.persistence.jdbc.user" value="default"/>
             <property name="javax.persistence.jdbc.password" value="default"/>
-            <!--            <property name="javax.persistence.schema-generation.database.action" value="drop-and-create"/>-->
-            <!--            Replace the above with the below hibernate-->
             <property name="hibernate.hbm2ddl.auto" value="update"/>
         </properties>
     </persistence-unit>
