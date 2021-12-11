@@ -185,7 +185,7 @@ public class StudentDaoImpl implements StudentDAO {
     }
 
     @Override
-    public Map<String, String> getAllAndGroupByProgram() {
+    public Map<String, Student> getAllAndGroupByProgram() {
         return null;
     }
 
