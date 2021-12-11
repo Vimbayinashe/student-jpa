@@ -25,6 +25,11 @@ public class StudentDaoImpl implements StudentDAO {
         em.getTransaction().commit();
     }
 
+    private boolean studentExists(Student student) {
+        Student student1 = getBySSN(student.getSSN());
+        return student1 != null;
+    }
+
     @Override
     public void update(Student student) {
         em.getTransaction().begin();
@@ -42,6 +47,13 @@ public class StudentDaoImpl implements StudentDAO {
     @Override
     public Student getById(int id) {
         return em.find(Student.class, id);
+    }
+
+    @Override
+    public Student getBySSN(String ssn) {
+        return em.createQuery("SELECT s FROM Student s WHERE s.SSN = :ssn", Student.class)
+                .setParameter("ssn", ssn)
+                .getSingleResult();
     }
 
     @Override
@@ -65,18 +77,16 @@ public class StudentDaoImpl implements StudentDAO {
 
     @Override
     public List<Student> getByProgramme(String programme) {
-        return em.createQuery("SELECT s FROM Student s WHERE s.programme = :programme", Student.class)
-                .setParameter("programme", programme)
+        return em.createQuery("SELECT s FROM Student s WHERE s.programme LIKE :programme", Student.class)
+                .setParameter("programme", "%" + programme + "%")
                 .getResultList();
     }
 
     @Override
     public List<Student> getByProgrammeAndIsActive(String programme, boolean active) {
-        int isActive = active ? 1 : 0;
-
-        return em.createQuery("SELECT s FROM Student s WHERE s.programme = :programme AND s.active = :active", Student.class)
+          return em.createQuery("SELECT s FROM Student s WHERE s.programme = :programme AND s.active = :active", Student.class)
                 .setParameter("programme", programme)
-                .setParameter("active", isActive)
+                .setParameter("active", active)
                 .getResultList();
     }
 
@@ -125,11 +135,6 @@ public class StudentDaoImpl implements StudentDAO {
 
     @Override
     public List<Student> getAllAndIsActive(boolean active) {
-        return null;
-    }
-
-    @Override
-    public List<Student> getAllByProgramAndIsActive(boolean active, String programme) {
         return null;
     }
 

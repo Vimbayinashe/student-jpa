@@ -139,13 +139,25 @@ public class Student {
         return this;
     }
 
-    public Student setTuitionCost(BigDecimal tuitionCost) {
+    private Student setTuitionCost(BigDecimal tuitionCost) {
         this.tuitionCost = tuitionCost;
         return this;
     }
 
-    public Student setTuitionPaid(BigDecimal tuitionPaid) {
+    public Student increaseTuition(String tuitionCost) {
+        Guard.Against.InvalidTuitionFormat(tuitionCost);
+        this.tuitionCost = this.tuitionCost.add((convertPrice(tuitionCost)));
+        return this;
+    }
+
+    private Student setTuitionPaid(BigDecimal tuitionPaid) {
         this.tuitionPaid = tuitionPaid;
+        return this;
+    }
+
+    public Student addPayment(String tuitionPaid) {
+        Guard.Against.InvalidTuitionFormat(tuitionPaid);
+        this.tuitionPaid = this.tuitionPaid.add(convertPrice(tuitionPaid));
         return this;
     }
 

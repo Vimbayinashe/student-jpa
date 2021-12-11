@@ -17,6 +17,8 @@ public interface StudentDAO {
 
     Student getById(int id);
 
+    Student getBySSN(String ssn);
+
     List<String> getProgrammes();
 
     List<Student> getByName(String name);
@@ -42,8 +44,6 @@ public interface StudentDAO {
     List<Student> getByProgrammeAndGender(String programme, Gender gender);
 
     List<Student> getAllAndIsActive(boolean active);
-
-    List<Student> getAllByProgramAndIsActive(boolean active, String programme); //todo - remove?
 
 
     Map<String, String> getAllAndGroupByProgram();     //todo - use Map
