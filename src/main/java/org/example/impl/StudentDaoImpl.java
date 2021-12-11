@@ -176,6 +176,15 @@ public class StudentDaoImpl implements StudentDAO {
     }
 
     @Override
+    public Long getTotalOutstandingBalance() {
+        return em.createQuery(
+                "SELECT SUM(s.tuitionCost - tuitionPaid) FROM Student s WHERE s.tuitionCost - s.tuitionPaid > 0",
+                    Long.class
+                )
+                .getSingleResult();
+    }
+
+    @Override
     public Map<String, String> getAllAndGroupByProgram() {
         return null;
     }

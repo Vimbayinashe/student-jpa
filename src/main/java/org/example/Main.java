@@ -83,7 +83,8 @@ public class Main {
 //        students =studentDAO.getOutstandingBalanceByActive(false);
 //        printStudents(students, "Inactive students with outstanding balances");
 
-
+        long totalOutstandingBalance = studentDAO.getTotalOutstandingBalance();
+        System.out.println("Total outstanding balance is: " + totalOutstandingBalance + " kr.");
 
 
 

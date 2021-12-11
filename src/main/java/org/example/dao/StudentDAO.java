@@ -45,13 +45,16 @@ public interface StudentDAO {
 
     List<Student> getByActive(boolean active);
 
-    List<Student> getAllAndOutstandingBalance();
-
-    List<Student> getOutstandingBalanceByActive(boolean active);
-
 
     Map<String, String> getAllAndGroupByProgram();     //todo - use Map
 
+
+    Long getTotalOutstandingBalance();
+
+    List<Student> getAllAndOutstandingBalance();
+
+
+    List<Student> getOutstandingBalanceByActive(boolean active);
 
 
     Map<String, List<Student>> getOutstandingBalanceAndGroupByProgram();
