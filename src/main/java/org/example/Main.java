@@ -1,6 +1,8 @@
 package org.example;
 
 import io.github.cdimascio.dotenv.Dotenv;
+import org.example.dao.StudentDAO;
+import org.example.impl.StudentDaoImpl;
 import org.example.student.Student;
 import org.example.student.StudentBuilder;
 
@@ -14,7 +16,6 @@ import java.util.Map;
 public class App {
 
     public static void main(String[] args) {
-
         Dotenv dotenv = Dotenv.configure().ignoreIfMalformed().ignoreIfMissing().load();
 
         Map<String, Object> configOverrides = Map.of(
@@ -24,12 +25,13 @@ public class App {
 
         EntityManagerFactory ENTITY_MANAGER_FACTORY = Persistence.createEntityManagerFactory("Lab4", configOverrides);
 
-        EntityManager em = ENTITY_MANAGER_FACTORY.createEntityManager();
+        StudentDAO studentDAO = new StudentDaoImpl(ENTITY_MANAGER_FACTORY);
 
         // testing database
+        EntityManager em = ENTITY_MANAGER_FACTORY.createEntityManager();
         em.getTransaction().begin();
 
-        Student student = StudentBuilder.getBuilder()
+                Student student = StudentBuilder.getBuilder()
                 .setName("Elizabeth", "Adams")
                 .setSSN("19860712-6979")
                 .setContactDetails("", "")
@@ -38,10 +40,30 @@ public class App {
                 .setTuitionPaid("100000")
                 .createStudent();
 
-        em.persist(student);
-        em.getTransaction().commit();
-        em.close();
+                em.persist(student);
+                em.getTransaction().commit();
+                em.close();
+
+
+
 
     }
 
 }
+
+
+// testing database
+//        em.getTransaction().begin();
+//
+//                Student student = StudentBuilder.getBuilder()
+//                .setName("Elizabeth", "Adams")
+//                .setSSN("19860712-6979")
+//                .setContactDetails("", "")
+//                .setProgramme("Law", 240)
+//                .setTuitionCost("120000")
+//                .setTuitionPaid("100000")
+//                .createStudent();
+//
+//                em.persist(student);
+//                em.getTransaction().commit();
+//                em.close();
