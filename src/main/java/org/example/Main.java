@@ -4,9 +4,11 @@ import io.github.cdimascio.dotenv.Dotenv;
 import org.example.dao.StudentDAO;
 import org.example.impl.StudentDaoImpl;
 import org.example.student.Student;
+import org.example.utils.Gender;
 
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
+import java.math.BigDecimal;
 import java.util.List;
 import java.util.Map;
 
@@ -57,8 +59,33 @@ public class Main {
 //        students = studentDAO.getByAge(22);
 //        printStudents(students, "Students who are 22 years old");
 
-        students = studentDAO.getByAgeInterval(22, 25);
-        printStudents(students, "Students between 22 and 25 years old");
+//        students = studentDAO.getByAgeInterval(22, 25);
+//        printStudents(students, "Students between 22 and 25 years old");
+
+//        students = studentDAO.getByGender(Gender.MALE);
+//        printStudents(students, "Male students");
+
+//        students = studentDAO.getActive(false);
+//        printStudents(students, "Inactive students");
+//
+//        students = studentDAO.getByProgrammeAndGender("Medicine", Gender.FEMALE);
+//        printStudents(students, "Female students studying medicine");
+
+//        students = studentDAO.getByCredits(120);
+//        printStudents(students, "Students studying courses with 120 credits.");
+
+//        students = studentDAO.getByCreditsRange(120, 180);
+//        printStudents(students, "Students studying courses between 120 and 180 credits.");
+
+//        students = studentDAO.getAllAndOutstandingBalance();
+//        printStudents(students, "Students with outstanding balances");
+//
+//        students =studentDAO.getOutstandingBalanceByActive(false);
+//        printStudents(students, "Inactive students with outstanding balances");
+
+
+
+
 
     }
 
@@ -67,9 +94,13 @@ public class Main {
         System.out.println(student);
     }
 
-    private static void printStudents(List<Student> allStudents, String heading) {
+    private static void printStudents(List<Student> students, String heading) {
         System.out.println("\n" + heading + ":");
-        allStudents.forEach(System.out::println);
+
+        if(students.isEmpty())
+            System.out.println("No students found.");
+        else
+            students.forEach(System.out::println);
     }
 
 }

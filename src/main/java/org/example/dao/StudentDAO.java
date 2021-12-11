@@ -43,19 +43,15 @@ public interface StudentDAO {
 
     List<Student> getByProgrammeAndGender(String programme, Gender gender);
 
-    List<Student> getAllAndIsActive(boolean active);
+    List<Student> getByActive(boolean active);
+
+    List<Student> getAllAndOutstandingBalance();
+
+    List<Student> getOutstandingBalanceByActive(boolean active);
 
 
     Map<String, String> getAllAndGroupByProgram();     //todo - use Map
 
-
-    BigDecimal getTotalOutstandingBalance();
-
-    List<Student> getAllWithOutstandingBalance();
-
-    List<Student> getOutstandingBalanceByProgramme(String programme);
-
-    List<Student> getOutstandingBalanceAndIsActive(boolean active);
 
 
     Map<String, List<Student>> getOutstandingBalanceAndGroupByProgram();

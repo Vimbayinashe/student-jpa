@@ -57,7 +57,7 @@ public class Default {
                         "Civil Engineering", "240", "180000", "70525"),
                 List.of("Patrik", "McNeal", "19970826-8799", "0973-9520949", "PatrickRMcNeal@dayrep.com",
                         "Education", "240", "120000", "20500"),
-                List.of("Daniella", "Sandvik", "20021226-6218 ", "0140-7855270", "DonaldABricker@rhyta.com",
+                List.of("Daniella", "Sandvik", "20021226-6228 ", "0140-7855270", "DonaldABricker@rhyta.com",
                         "Education", "240", "120000", "90995")
         );
     }

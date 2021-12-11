@@ -57,8 +57,8 @@ public class StudentDaoImpl implements StudentDAO {
     }
 
     @Override
-    public List<String> getProgrammes() {
-        return em.createQuery("SELECT DISTINCT (s.programme) FROM  Student s ", String.class).getResultList();
+    public List<Student> getAll() {
+        return em.createQuery("SELECT student FROM  Student student ", Student.class).getResultList();
     }
 
     @Override
@@ -73,26 +73,6 @@ public class StudentDaoImpl implements StudentDAO {
         return em.createQuery("SELECT s FROM Student s WHERE s.firstName = :name OR s.lastName = :name", Student.class)
                 .setParameter("name", name)
                 .getResultList();
-    }
-
-    @Override
-    public List<Student> getByProgramme(String programme) {
-        return em.createQuery("SELECT s FROM Student s WHERE s.programme LIKE :programme", Student.class)
-                .setParameter("programme", "%" + programme + "%")
-                .getResultList();
-    }
-
-    @Override
-    public List<Student> getByProgrammeAndIsActive(String programme, boolean active) {
-          return em.createQuery("SELECT s FROM Student s WHERE s.programme = :programme AND s.active = :active", Student.class)
-                .setParameter("programme", programme)
-                .setParameter("active", active)
-                .getResultList();
-    }
-
-    @Override
-    public List<Student> getAll() {
-        return em.createQuery("SELECT student FROM  Student student ", Student.class).getResultList();
     }
 
     @Override
@@ -115,51 +95,88 @@ public class StudentDaoImpl implements StudentDAO {
 
     @Override
     public List<Student> getByGender(Gender gender) {
-        return null;
+        int remainder = getRemainder(gender);
+        return em.createQuery("SELECT s FROM Student s WHERE MOD(SUBSTRING(s.SSN, 12, 1), 2) = :remainder", Student.class)
+                .setParameter("remainder", remainder)
+                .getResultList();
+    }
+
+    private int getRemainder(Gender gender) {
+        return switch (gender) {
+            case MALE -> 1;
+            case FEMALE -> 0;
+        };
     }
 
     @Override
-    public List<Student> getByCredits(int credits) {
-        return null;
+    public List<Student> getByActive(boolean active) {
+        return em.createQuery("SELECT s FROM Student s WHERE s.active = :active", Student.class)
+                .setParameter("active", active)
+                .getResultList();
     }
 
     @Override
-    public List<Student> getByCreditsRange(int min, int max) {
-        return null;
+    public List<Student> getByProgramme(String programme) {
+        return em.createQuery("SELECT s FROM Student s WHERE s.programme LIKE :programme", Student.class)
+                .setParameter("programme", "%" + programme + "%")
+                .getResultList();
+    }
+
+    @Override
+    public List<Student> getByProgrammeAndIsActive(String programme, boolean active) {
+        return em.createQuery("SELECT s FROM Student s WHERE s.programme = :programme AND s.active = :active", Student.class)
+                .setParameter("programme", programme)
+                .setParameter("active", active)
+                .getResultList();
     }
 
     @Override
     public List<Student> getByProgrammeAndGender(String programme, Gender gender) {
-        return null;
+        return em.createQuery("SELECT s FROM Student s WHERE s.programme = :programme AND " +
+                              "MOD(SUBSTRING(s.SSN, 12, 1), 2) = :remainder", Student.class)
+                .setParameter("programme", programme)
+                .setParameter("remainder", getRemainder(gender))
+                .getResultList();
     }
 
     @Override
-    public List<Student> getAllAndIsActive(boolean active) {
-        return null;
+    public List<Student> getByCredits(int credits) {
+        return em.createQuery("SELECT s FROM Student s WHERE s.credits = :credits", Student.class)
+                .setParameter("credits", credits)
+                .getResultList();
+    }
+
+    @Override
+    public List<Student> getByCreditsRange(int min, int max) {
+        return em.createQuery("SELECT s FROM Student s WHERE s.credits BETWEEN :min AND :max", Student.class)
+                .setParameter("min", min)
+                .setParameter("max", max)
+                .getResultList();
+    }
+
+    @Override
+    public List<String> getProgrammes() {
+        return em.createQuery("SELECT DISTINCT (s.programme) FROM  Student s ", String.class).getResultList();
+    }
+
+    @Override
+    public List<Student> getAllAndOutstandingBalance() {
+        return em.createQuery("SELECT s FROM Student s WHERE s.tuitionCost - s.tuitionPaid > 0", Student.class)
+                .getResultList();
+    }
+
+    @Override
+    public List<Student> getOutstandingBalanceByActive(boolean active) {
+        return em.createQuery(
+                "SELECT s FROM Student s WHERE s.tuitionCost - s.tuitionPaid > 0 AND s.active = :active",
+                    Student.class
+                )
+                .setParameter("active", active)
+                .getResultList();
     }
 
     @Override
     public Map<String, String> getAllAndGroupByProgram() {
-        return null;
-    }
-
-    @Override
-    public BigDecimal getTotalOutstandingBalance() {
-        return null;
-    }
-
-    @Override
-    public List<Student> getAllWithOutstandingBalance() {
-        return null;
-    }
-
-    @Override
-    public List<Student> getOutstandingBalanceByProgramme(String programme) {
-        return null;
-    }
-
-    @Override
-    public List<Student> getOutstandingBalanceAndIsActive(boolean active) {
         return null;
     }
 
