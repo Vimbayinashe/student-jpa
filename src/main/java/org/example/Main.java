@@ -4,16 +4,14 @@ import io.github.cdimascio.dotenv.Dotenv;
 import org.example.dao.StudentDAO;
 import org.example.impl.StudentDaoImpl;
 import org.example.student.Student;
-import org.example.student.StudentBuilder;
 
-import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
-import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 
-public class App {
+public class Main {
 
     public static void main(String[] args) {
         Dotenv dotenv = Dotenv.configure().ignoreIfMalformed().ignoreIfMissing().load();
@@ -27,43 +25,23 @@ public class App {
 
         StudentDAO studentDAO = new StudentDaoImpl(ENTITY_MANAGER_FACTORY);
 
-        // testing database
-        EntityManager em = ENTITY_MANAGER_FACTORY.createEntityManager();
-        em.getTransaction().begin();
+        List<Student> studentList = Default.students();
+        studentList.forEach(studentDAO::create);
 
-                Student student = StudentBuilder.getBuilder()
-                .setName("Elizabeth", "Adams")
-                .setSSN("19860712-6979")
-                .setContactDetails("", "")
-                .setProgramme("Law", 240)
-                .setTuitionCost("120000")
-                .setTuitionPaid("100000")
-                .createStudent();
-
-                em.persist(student);
-                em.getTransaction().commit();
-                em.close();
+        List<Student> allStudents = studentDAO.getAll();
+        printStudents(allStudents, "All students");
 
 
+    }
 
 
+    private static void printStudents(List<Student> allStudents, String heading) {
+        System.out.println(heading + ":");
+        allStudents.forEach(System.out::println);
     }
 
 }
 
 
-// testing database
-//        em.getTransaction().begin();
-//
-//                Student student = StudentBuilder.getBuilder()
-//                .setName("Elizabeth", "Adams")
-//                .setSSN("19860712-6979")
-//                .setContactDetails("", "")
-//                .setProgramme("Law", 240)
-//                .setTuitionCost("120000")
-//                .setTuitionPaid("100000")
-//                .createStudent();
-//
-//                em.persist(student);
-//                em.getTransaction().commit();
-//                em.close();
+
+

@@ -1,6 +1,6 @@
 package org.example.dao;
 
-import org.example.Gender;
+import org.example.utils.Gender;
 import org.example.student.Student;
 
 import java.math.BigDecimal;
@@ -16,8 +16,6 @@ public interface StudentDAO {
     void delete(Student student);
 
     Student getById(int id);
-
-    Student getOutstandingBalance(int id);
 
     List<String> getProgrammes();
 
