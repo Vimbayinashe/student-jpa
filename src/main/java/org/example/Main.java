@@ -4,6 +4,7 @@ import io.github.cdimascio.dotenv.Dotenv;
 import org.example.dao.StudentDAO;
 import org.example.impl.StudentDaoImpl;
 import org.example.student.Student;
+import org.example.utils.DefaultStudents;
 import org.example.utils.Gender;
 
 import javax.persistence.EntityManagerFactory;
@@ -27,7 +28,7 @@ public class Main {
     public static void main(String[] args) {
 
         StudentDAO studentDAO = new StudentDaoImpl(ENTITY_MANAGER_FACTORY);
-//        List<Student> studentList = Default.students();
+//        List<Student> studentList = DefaultStudents.students();
 //        studentList.forEach(studentDAO::create);
 //        System.out.println("Default students created!");
 

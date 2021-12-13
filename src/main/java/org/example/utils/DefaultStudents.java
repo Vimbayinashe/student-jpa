@@ -1,4 +1,4 @@
-package org.example;
+package org.example.utils;
 
 import org.example.student.Student;
 import org.example.student.StudentBuilder;
@@ -9,7 +9,7 @@ import java.util.List;
 import static org.example.student.Guard.ValidDouble;
 import static org.example.student.Guard.ValidInteger;
 
-public class Default {
+public class DefaultStudents {
 
     public static List<Student> students() {
         List<List<String >> studentDetails = getStudentDetails();

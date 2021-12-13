@@ -50,5 +50,5 @@ public interface StudentDAO {
     List<Student> getAllAndOutstandingBalance();
 
     List<Student> getOutstandingBalanceByActive(boolean active);
-    
+
   }
