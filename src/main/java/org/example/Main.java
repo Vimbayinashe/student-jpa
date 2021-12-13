@@ -8,7 +8,6 @@ import org.example.utils.Gender;
 
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
-import java.math.BigDecimal;
 import java.util.List;
 import java.util.Map;
 
@@ -86,7 +85,6 @@ public class Main {
 //        long totalOutstandingBalance = studentDAO.getTotalOutstandingBalance();
 //        System.out.println("Total outstanding balance is: " + totalOutstandingBalance + " kr.");
 
-        
 
     }
 

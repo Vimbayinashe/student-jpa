@@ -50,14 +50,5 @@ public interface StudentDAO {
     List<Student> getAllAndOutstandingBalance();
 
     List<Student> getOutstandingBalanceByActive(boolean active);
-
-
-    Map<String, Student>  getAllAndGroupByProgram();
-
-    Map<String, List<Student>> getOutstandingBalanceAndGroupByProgram();
-
-    Map<String, BigDecimal> getOutstandingBalanceByProgram();
-
-    Map<String, Integer> getOutstandingBalanceCountByProgram(); //order DESC
-
+    
   }

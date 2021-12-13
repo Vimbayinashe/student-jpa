@@ -184,23 +184,4 @@ public class StudentDaoImpl implements StudentDAO {
                 .getSingleResult();
     }
 
-    @Override
-    public Map<String, Student> getAllAndGroupByProgram() {
-        return null;
-    }
-
-    @Override
-    public Map<String, List<Student>> getOutstandingBalanceAndGroupByProgram() {
-        return null;
-    }
-
-    @Override
-    public Map<String, BigDecimal> getOutstandingBalanceByProgram() {
-        return null;
-    }
-
-    @Override
-    public Map<String, Integer> getOutstandingBalanceCountByProgram() {
-        return null;
-    }
 }
